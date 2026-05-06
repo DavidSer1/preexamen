@@ -1,36 +1,55 @@
 document.addEventListener("DOMContentLoaded", main);
 
 function main() {
-loadData();
+ //loadData();
+ carregartaula();
 }
 
 function loadData() {
 fetch("./data.json")
   .then(res => res.json())
   .then(data => {
-    console.log(data);
+    console.log("Data loaded:", data);
     localStorage.setItem("datos", JSON.stringify(data));
   });
 }
 
 function carregartaula() {  
     let agafaid = document.getElementById("contingut");
-    let tr = document.createElement("tr");
-    let td= document.createElement("td");
+
     let agafar = JSON.parse(localStorage.getItem("datos"));
-    for (const element of agafar) {
-       let info1 = element["data"];
-       td.appendChild(document.createTextNode(info1));
-       let info2 = element["descripcio"];
-        td.appendChild(document.createTextNode(info2));
-       let info3 = element["import"];
-        td.appendChild(document.createTextNode(info3));
- let info4= element["import"];
-        td.appendChild(document.createTextNode(info4));
-  let info5= element["import"];
-        td.appendChild(document.createTextNode(info5));
-       tr.appendChild(td);
+    
+    agafar.forEach(element => {
+      console.log("Element de prova :", element);
+       let tr = document.createElement("tr");
+       let tdborrar= document.createElement("td");
+       let botoborrar = document.createElement("button");
+       botoborrar.appendChild(document.createTextNode("Borrar"));
+       botoborrar.className = "bg-danger py-2 px-1 rounded border-4 border-primary text-white";
+       tdborrar.appendChild(botoborrar);
+       tr.appendChild(tdborrar);
+ 
+    let td1= document.createElement("td");
+    let td2= document.createElement("td");
+    let td3= document.createElement("td");
+    let td4= document.createElement("td");
+    let td5= document.createElement("td");
+
+       td1.appendChild(document.createTextNode(element.fecha));
+      
+        td2.appendChild(document.createTextNode(element.concepto));
+     
+        td3.appendChild(document.createTextNode(element.dh));
+
+        td4.appendChild(document.createTextNode(element.importe));
+
+        td5.appendChild(document.createTextNode(element.saldo));
+       tr.appendChild(td1);
+       tr.appendChild(td2);
+       tr.appendChild(td3);
+       tr.appendChild(td4);
+       tr.appendChild(td5);
      agafaid.appendChild(tr);
-    }
+    }); 
       
 }  
