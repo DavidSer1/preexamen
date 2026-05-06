@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", main);
 
 function main() {
- //loadData();
+ loadData();
  carregartaula();
 }
 

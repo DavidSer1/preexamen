@@ -19,11 +19,44 @@
             <h2 class="fs-3">Libro contable</h2>
           
 
-        </div>
-    </div>
+        </div>  
+   </div>
+   <div class="col-3"></div>
+      
+               
+                <form class="col-6"> 
+                    <div class="d-flex justify-content-start mt-3 p-3">
+                    <button class="btn btn-success" id="afegir">Añadir</button>
+                </div> 
+<div class="mb-3">
+  <label for="concepto" class="form-label">Concepto</label>
+  <input type="text" class="form-control" id="concepto" pattern="^[a-zA-Z\s]+$" placeholder="Concepto" required>
+</div>
+<div class="mb-3">
+<label for="dh" class="form-label">DH</label>
+  <select class="form-control" id="dh">
+    <option value="D">D</option>
+    <option value="H">H</option>
+  </select>
+</div>
+<div class="mb-3">
+  <label for="importe" class="form-label">Importe</label>
+  <input type="text" class="form-control" id="importe" pattern="^\d+(\.\d+)?$" placeholder="Importe" required>
+</div>
+<div class="mb-3">
+  <label for="saldo" class="form-label">Saldo</label>
+  <input type="text" class="form-control" id="saldo" pattern="^\d+(\.\d+)?$" placeholder="Saldo" required>
+</div>
+
+</form>
+       
+          <div class="col-3"></div>
+  
 </div>
 <div class="row pt-5">
-    <div class="col-12"> 
+    <div class="col-1"> </div>
+ 
+    <div class="col-10"> 
     <table class="table table-striped">
         <thead>
             <tr>
@@ -40,6 +73,7 @@
         </tbody>
     </table>
     </div>
+       <div class="col-1"></div>
 </div>
 
    </div>
