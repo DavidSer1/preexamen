@@ -4,39 +4,34 @@
     "fecha": "2026-05-01",
     "concepto": "Ingreso nómina",
     "dh": "H",
-    "importe": 1500.00,
-    "saldo": 1500.00
+    "importe": 1500.00
   },
   {
     "id": 2,
     "fecha": "2026-05-02",
     "concepto": "Compra supermercado",
     "dh": "D",
-    "importe": -75.35,
-    "saldo": 1424.65
+    "importe": 75.35
   },
   {
     "id": 3,
     "fecha": "2026-05-03",
     "concepto": "Pago luz",
     "dh": "D",
-    "importe": -60.00,
-    "saldo": 1364.65
+    "importe": 60.00
   },
   {
     "id": 4,
     "fecha": "2026-05-04",
     "concepto": "Transferencia recibida",
     "dh": "H",
-    "importe": 200.00,
-    "saldo": 1564.65
+    "importe": 200.00
   },
   {
     "id": 5,
     "fecha": "2026-05-05",
     "concepto": "Cena restaurante",
     "dh": "D",
-    "importe": -45.20,
-    "saldo": 1519.45
+    "importe": 445.20
   }
 ]

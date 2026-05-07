@@ -1,6 +1,6 @@
 //VARIABLES GLOBALES
 let dades = JSON.parse(localStorage.getItem("datos")) || [];
-
+let saldoTotal = 0;
 
 document.addEventListener("DOMContentLoaded", main);
 
@@ -20,16 +20,22 @@ function carregarjson() {
         .then(data => {
             console.log("Data loaded:", data);
 
-            localStorage.setItedadesm("datos", JSON.stringify(data));
+            localStorage.setItem("datos", JSON.stringify(data));
         });
 }
 
 function carregartaula() {
-    let agafaid = document.getElementById("contingut");
+    
+    dades.forEach(ele => {
+        console.log("Element de prova :", ele);
+        cargarApunte(ele)    
 
-    dades.forEach(element => {
-        console.log("Element de prova :", element);
-        let tr = document.createElement("tr");
+    });
+}
+
+const cargarApunte = (element) => {
+      let agafaid = document.getElementById("contingut");
+      let tr = document.createElement("tr");
         tr.setAttribute("id", element.id);
         /*let fechaFormateada = element.fecha.replaceAll("-", "/");*/
         let [year, month, day] = element.fecha.split("-");
@@ -67,7 +73,7 @@ function carregartaula() {
         td2.appendChild(document.createTextNode(element.concepto));
         td3.appendChild(document.createTextNode(element.dh));
         td4.appendChild(document.createTextNode(element.importe + " €"));
-        td5.appendChild(document.createTextNode(element.saldo + " €"));
+        td5.appendChild(document.createTextNode(calcularsaldototal(element) + " €"));
 
         tr.appendChild(td1);
         tr.appendChild(td2);
@@ -76,63 +82,33 @@ function carregartaula() {
         tr.appendChild(td5);
 
         agafaid.appendChild(tr);
-
-    });
 }
 
 function carregarsaldototal() {
-    let agafaid = document.getElementById("contingut");
+    let saldo = document.getElementById("saldo"); 
     let trsaldo = document.createElement("tr");
-    let saldo = calcularsaldototal();
-    let tdsaldo1 = document.createElement("td");
-    let tdsaldo2 = document.createElement("td");
-    let tdsaldo3 = document.createElement("td");
-    let tdsaldo4 = document.createElement("td");
-    let tdsaldo5 = document.createElement("td");
-    let tdsaldo6 = document.createElement("td");
-    tdsaldo6.className = "py-1 fw-bold text-end pe-3";
-
-    trsaldo.appendChild(tdsaldo1);
-    trsaldo.appendChild(tdsaldo2);
-    trsaldo.appendChild(tdsaldo3);
-    trsaldo.appendChild(tdsaldo4);
-    trsaldo.appendChild(tdsaldo5);
-    tdsaldo6.appendChild(document.createTextNode("Saldo Total: " + saldo + " €"));
-    trsaldo.appendChild(tdsaldo6);
-    agafaid.appendChild(trsaldo);
+    let tdsaldo = document.createElement("td");
+    tdsaldo.setAttribute("colspan","6");
+    tdsaldo.className = "py-1 fw-bold text-end pe-3";
+    trsaldo.appendChild(tdsaldo);
+    tdsaldo.appendChild(document.createTextNode("Saldo Total: " + saldoTotal.toFixed(2) + " €"));
+    saldo.appendChild(trsaldo);
 
 }
 
-function calcularsaldototal() {
-    let saldo = 0;
-    dades.forEach(element => {
-        if (element.dh === "D") {
-            saldo += parseFloat(element.importe);
-        } else if (element.dh === "H") {
-            saldo += parseFloat(element.importe);
+function calcularsaldototal(ele) {
+        if (ele.dh === "D") {
+            saldoTotal -= parseFloat(ele.importe);
+        } else {
+            saldoTotal += parseFloat(ele.importe);
         }
-    });
 
-    return saldo.toFixed(2);
-}
-
-function calcularultimosaldo() {
-    let saldo = 0;
-    dades.forEach(element => {
-        if (element.dh === "D") {
-            saldo += parseFloat(element.importe);
-        } else if (element.dh === "H") {
-            saldo += parseFloat(element.importe);
-        }
-    });
-
-    return saldo.toFixed(2);
+    return saldoTotal.toFixed(2);
 }
 
 
 function añadirApunte() {
 
-    //let dadesdatosdavid = JSON.parse(localStorage.getItem("datos")) || [];
     let id = (dades.at(-1)?.id || 0) + 1;
     let fecha = document.getElementById("fecha").value;
     let concepto = document.getElementById("concepto").value;
@@ -145,6 +121,9 @@ function añadirApunte() {
         id: id,
         fecha: fecha,
         concepto: concepto,
+        id: id,
+        fecha: fecha,
+        concepto: concepto,
         dh: dh,
         importe: importe,
         saldo: saldo
@@ -152,17 +131,19 @@ function añadirApunte() {
 
     dades.push(objApunte);
     localStorage.setItem("datos", JSON.stringify(dades));
+     
+    dades.push(objApunte);
+    localStorage.setItem("datos", JSON.stringify(dades));
 
-    // afegir un aounte nou a la taula
-
-    // actualitzar el saldo total
-    
-    // esborrar els camps del formulari
+    // Afegir un nou apunt
+    cargarApunte(objApunte); 
+    // Actualitzar el saldo total
+    carregarsaldototal();
+    // Esborrar els camps del formulari
     document.getElementsByTagName("form")[0].reset();
     //carregartaula();
     
 }
-
 
 function validarfecha() {
     let element = document.getElementById("fecha");
