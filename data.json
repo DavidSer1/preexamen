@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "fecha": "2026-05-01",
     "concepto": "Ingreso nómina",
     "dh": "H",
@@ -7,6 +8,7 @@
     "saldo": 1500.00
   },
   {
+    "id": 2,
     "fecha": "2026-05-02",
     "concepto": "Compra supermercado",
     "dh": "D",
@@ -14,6 +16,7 @@
     "saldo": 1424.65
   },
   {
+    "id": 3,
     "fecha": "2026-05-03",
     "concepto": "Pago luz",
     "dh": "D",
@@ -21,6 +24,7 @@
     "saldo": 1364.65
   },
   {
+    "id": 4,
     "fecha": "2026-05-04",
     "concepto": "Transferencia recibida",
     "dh": "H",
@@ -28,6 +32,7 @@
     "saldo": 1564.65
   },
   {
+    "id": 5,
     "fecha": "2026-05-05",
     "concepto": "Cena restaurante",
     "dh": "D",

@@ -18,9 +18,8 @@
 
     <main class="container-lg pb-5">
         <div class="row justify-content-center">
-            <div class="col-12 col-xl-10">
+            <div class="col-12 ">
                 
-                <!-- Formulario más grande -->
                 <div class="bg-glass p-4 p-md-5 rounded-5 shadow-lg mb-5 border border-white border-opacity-25">
                     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-5 gap-3">
                         <h2 class="display-6 fw-bold mb-0">Nuevo Registro</h2>
@@ -32,15 +31,16 @@
                     <form id="ledger-form" class="row g-4">
                       <div class="col-md-6">
                         <label for="fecha" class="form-label fs-5 fw-semibold">Fecha</label>
-                        <input type="date" class="form-control form-control-lg fs-5 p-3 rounded-4" id="fecha" title="Ejemplo: 07/05/2026" required>
+                        <input type="date" class="form-control form-control-lg fs-5 p-2 rounded-4" id="fecha" title="Ejemplo: 07/05/2026" required>
                       </div>
                         <div class="col-md-6">
                             <label for="concepto" class="form-label fs-5 fw-semibold">Concepto</label>
-                            <input type="text" class="form-control form-control-lg fs-5 p-3 rounded-4" id="concepto" pattern="^[A-Za-z0-9À-ÿ\s\.,'()\-]+$" title="Ejemplos: Pago luz, Compra (Mercadona), Nómina 05-26" placeholder="Ej. Pago de Alquiler" required>
+                            <input type="text" class="form-control form-control-lg fs-5 p-2 rounded-4" id="concepto" pattern="^[A-Za-z0-9À-ÿ\s\.,'()\-]+$" title="Ejemplos: Pago luz, Compra (Mercadona), Nómina 05-26" placeholder="Ej. Pago de Alquiler" required>
                         </div>
                         <div class="col-md-6">
                             <label for="dh" class="form-label fs-5 fw-semibold">D/H</label>
-                            <select class="form-select form-select-lg fs-5 p-3 rounded-4" id="dh">
+                            <select class="form-select form-select-lg fs-5 p-2  rounded-4" id="dh" required>
+                                <option value="">Seleccionar</option>
                                 <option value="D">Debe (Salida - Ej: Pago)</option>
                                 <option value="H">Haber (Entrada - Ej: Ingreso)</option>
                             </select>
@@ -49,17 +49,11 @@
                             <label for="importe" class="form-label fs-5 fw-semibold">Importe</label>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bg-light border-end-0 px-4">€</span>
-                                <input type="text" class="form-control fs-5 p-3 rounded-end-4 border-start-0" id="importe" pattern="^-?\d+([.,]\d{1,2})?$" title="Ejemplos: 150.50, -45.20 o 1200" placeholder="0.00" required>
+                                <input type="text" class="form-control fs-5 p-2  rounded-end-4 border-start-0" id="importe" pattern="^-?\d+([.,]\d{1,2})?$" title="Ejemplos: 150.50, -45.20 o 1200" placeholder="0.00" required>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="saldo" class="form-label fs-5 fw-semibold">Saldo</label>
-                            <div class="input-group input-group-lg">
-                                <span class="input-group-text bg-light border-end-0 px-4">€</span>
-                                <input type="text" class="form-control fs-5 p-3 rounded-end-4 border-start-0" id="saldo" pattern="^-?\d+([.,]\d{1,2})?$" title="Ejemplos: 1500.00 o -20.50" placeholder="0.00" required>
-                            </div>
-                        </div>
-                        <p id="missatgeError"></p>
+                    
+                        <p id="missatgeError" class="text-danger fs-4"></p>
                     </form>
                 </div>
 
@@ -78,7 +72,7 @@
                                 </tr>
                             </thead>
                             <tbody id="contingut" class="fs-5">
-                                <!-- Datos dinámicos -->
+                              
                             </tbody>
                         </table>
                     </div>
