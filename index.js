@@ -36,7 +36,7 @@ function carregartaula() {
 const cargarApunte = (element) => {
       let agafaid = document.getElementById("contingut");
       let tr = document.createElement("tr");
-        tr.setAttribute("id", element.id);
+        
         /*let fechaFormateada = element.fecha.replaceAll("-", "/");*/
         let [year, month, day] = element.fecha.split("-");
         const fechaFormateada = `${day}/${month}/${year}`;
@@ -47,6 +47,10 @@ const cargarApunte = (element) => {
         let botoborrar = document.createElement("button");
         botoborrar.appendChild(document.createTextNode("Borrar"));
         botoborrar.className = "btn btn-outline-danger btn-lg rounded-4 px-4 shadow-sm";
+        botoborrar.addEventListener("click", () => {
+eliminarapunte(tr, element.id)
+});
+   
         tdborrar.appendChild(botoborrar);
         tr.appendChild(tdborrar);
 
@@ -93,8 +97,8 @@ function carregarsaldototal() {
     trsaldo.appendChild(tdsaldo);
     tdsaldo.appendChild(document.createTextNode("Saldo Total: " + saldoTotal.toFixed(2) + " €"));
     saldo.appendChild(trsaldo);
-
 }
+
 
 function calcularsaldototal(ele) {
         if (ele.dh === "D") {
@@ -114,24 +118,17 @@ function añadirApunte() {
     let concepto = document.getElementById("concepto").value;
     let dh = document.getElementById("dh").value;
     let importe = document.getElementById("importe").value;
-    let saldo = calcularultimosaldo();
 
 
     let objApunte = {
         id: id,
         fecha: fecha,
         concepto: concepto,
-        id: id,
-        fecha: fecha,
-        concepto: concepto,
         dh: dh,
-        importe: importe,
-        saldo: saldo
+        importe: importe
+     
     }
 
-    dades.push(objApunte);
-    localStorage.setItem("datos", JSON.stringify(dades));
-     
     dades.push(objApunte);
     localStorage.setItem("datos", JSON.stringify(dades));
 
@@ -173,6 +170,7 @@ function validarconcepto() {
     return true;
 }
 
+
 function validardh() {
     let element = document.getElementById("dh");
     if (!element.checkValidity()) {
@@ -202,8 +200,6 @@ function validarimporte() {
 }
 
 
-
-
 function validar(e) {
     esborrarError();
 
@@ -229,4 +225,15 @@ function esborrarError() {
     for (let i = 0; i < formulari.elements.length; i++) {
         formulari.elements[i].classList.remove("error");
     }
+}
+
+function eliminarapunte(tr, id) {
+if(confirm("Estas seguro de que quieres eliminar este apunte?")){
+    let lista =  dades.filter(dades => dades.id !== id);
+    localStorage.setItem("datos", JSON.stringify(lista));
+tr.remove();
+
+}
+    console.log(tr);
+    console.log(id);
 }
