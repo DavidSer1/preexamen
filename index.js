@@ -90,6 +90,9 @@ eliminarapunte(tr, element.id)
 
 function carregarsaldototal() {
     let saldo = document.getElementById("saldo"); 
+    while (saldo.firstChild) {
+        saldo.removeChild(saldo.firstChild);
+    }
     let trsaldo = document.createElement("tr");
     let tdsaldo = document.createElement("td");
     tdsaldo.setAttribute("colspan","6");
@@ -97,6 +100,7 @@ function carregarsaldototal() {
     trsaldo.appendChild(tdsaldo);
     tdsaldo.appendChild(document.createTextNode("Saldo Total: " + saldoTotal.toFixed(2) + " €"));
     saldo.appendChild(trsaldo);
+
 }
 
 
@@ -229,11 +233,17 @@ function esborrarError() {
 
 function eliminarapunte(tr, id) {
 if(confirm("Estas seguro de que quieres eliminar este apunte?")){
-    let lista =  dades.filter(dades => dades.id !== id);
-    localStorage.setItem("datos", JSON.stringify(lista));
-tr.remove();
-
+    let itemAEliminar = dades.find(d => d.id === id);
+    if (itemAEliminar) {
+        if (itemAEliminar.dh === "D") {
+            saldoTotal += parseFloat(itemAEliminar.importe);
+        } else {
+            saldoTotal -= parseFloat(itemAEliminar.importe);
+        }
+        carregarsaldototal();
+    }
+    dades = dades.filter(d => d.id !== id);
+    localStorage.setItem("datos", JSON.stringify(dades));
+    tr.remove();
 }
-    console.log(tr);
-    console.log(id);
 }
