@@ -16,22 +16,26 @@ datoscoche.forEach(coche => {
     let llistatcoches = document.getElementById("listado");
     let cardprincipal = document.createElement("div");
   
-    cardprincipal.class = "card mb-4";
+    cardprincipal.className = "card mb-4";
     let image = document.createElement("a");
     let linkcoche = document.createElement("img");
-    linkcoche.class = "card-img-top";
-    linkcoche.src = "";
+    linkcoche.className = "card-img-top";
+    linkcoche.src = "img/"+coche.img;
     image.appendChild(linkcoche);
     let imfochecard = document.createElement("div");
-    imfochecard.class = "card-body";
+    imfochecard.className = "card-body";
     let titolcoche = document.createElement("h2");
-    titolcoche.class = "card-title ";
+    titolcoche.className = "card-title ";
+    let texttitolcoche = document.createTextNode(coche.marca + " " + coche.modelo);
+    titolcoche.appendChild(texttitolcoche);
     let rowpreu = document.createElement("div");
-    rowpreu.class = "row justify-content-end";
+    rowpreu.className = "row justify-content-end";
     let divenglobapreu = document.createElement("div");
-    divenglobapreu.class = "p-2 mb-1  col-md-3 offset-md-3 bg-warning rounded text-center";
+    divenglobapreu.className = "p-2 mb-1  col-md-3 offset-md-3 bg-warning rounded text-center";
     let preucoche = document.createElement("h2");
-    preucoche.class = "font-weight-bold";
+    let preucochetext = document.createTextNode(coche.precio + " €");
+    preucoche.appendChild(preucochetext);
+    preucoche.className = "font-weight-bold";
     divenglobapreu.appendChild(preucoche);
     rowpreu.appendChild(divenglobapreu);
     imfochecard.appendChild(titolcoche);
@@ -40,14 +44,14 @@ datoscoche.forEach(coche => {
     cardprincipal.appendChild(imfochecard);
 
     let parametrescoche = document.createElement("div");
-    parametrescoche.class = "row";
+    parametrescoche.className = "row";
 
     let thany = donarthcoche("Año");
     let thkilometros = donarthcoche("Kilometros");
     let thcambio = donarthcoche("Cambio");
     let thcombustible = donarthcoche("Combustible");
     let hueco = document.createElement("div");
-    hueco.class = "w-100";
+    hueco.className = "w-100";
     parametrescoche.appendChild(thany);
     parametrescoche.appendChild(thkilometros);
     parametrescoche.appendChild(thcambio);
@@ -63,7 +67,7 @@ datoscoche.forEach(coche => {
     parametrescoche.appendChild(tdcombustible);
     let linkreservar = document.createElement("a");
     linkreservar.classList.add("btn", "btn-primary", "m-3");
-    linkreservar.href = "#";
+    linkreservar.href = "./reserva.html?id="+coche.modelo;
     linkreservar.appendChild(document.createTextNode("Reservar"));
 
     imfochecard.appendChild(parametrescoche);
@@ -75,14 +79,14 @@ datoscoche.forEach(coche => {
 
 function donarthcoche(contingut) {
     let th = document.createElement("div");
-    th.class = "col p-3 text-center border-bottom border-dark"
+    th.className = "col p-3 text-center border-bottom border-dark"
     th.appendChild(document.createTextNode(contingut));
     return th;
 }
 
 function tornardadescoche(contingut) {
     let td = document.createElement("div");
-    td.class = "col p-3";
+    td.className = "col p-3 text-center";
     td.appendChild(document.createTextNode(contingut));
     return td;
 } 
