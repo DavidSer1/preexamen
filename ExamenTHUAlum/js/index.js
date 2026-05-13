@@ -67,7 +67,9 @@ datoscoche.forEach(coche => {
     parametrescoche.appendChild(tdcombustible);
     let linkreservar = document.createElement("a");
     linkreservar.classList.add("btn", "btn-primary", "m-3");
-    linkreservar.href = "./reserva.html?id="+coche.modelo;
+   
+    let id = coche.modelo;
+  linkreservar.href = "./reserva.html?id="+id;
     linkreservar.appendChild(document.createTextNode("Reservar"));
 
     imfochecard.appendChild(parametrescoche);
