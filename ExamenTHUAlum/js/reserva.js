@@ -119,7 +119,6 @@ function validar(e) {
 
     if (validarnombreApellidos() && validardni() && validaremail() && validartelefono() && validarcondicions() && confirm("Confirma si vols crear el registre?")) {
      afegirreserva();
-
         return true;
     } else {
         e.preventDefault();
@@ -136,13 +135,12 @@ function afegirreserva(){
         nota: document.getElementById("nota").value,
    
     };
-    let reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+    let reservas = JSON.parse(localStorage.getItem("cliente")) || [];
     reservas.push(reserva);
-    localStorage.setItem("reservas", JSON.stringify(reservas));
+    localStorage.setItem("cliente", JSON.stringify(reservas));
     cocheseleccionat()
 }
     
-
 
 function error(element, missatge) {
     const missatgeNode = document.createTextNode(missatge);
