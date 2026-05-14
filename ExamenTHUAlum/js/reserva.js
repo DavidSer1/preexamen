@@ -45,3 +45,89 @@ function carregarmodelocochesseleccionat() {
         console.log("No se encontró el coche con id:", idUrl);
     }
 }
+
+function validarfecha() {
+    let element = document.getElementById("fecha");
+    if (!element.checkValidity()) {
+        if (element.validity.valueMissing) {
+            error(element, "Has d'introduir una data.");
+        }
+        if (element.validity.patternMismatch) {
+            error(element, "La data ha de ser vàlida.");
+        }
+        return false;
+    }
+    return true;
+}
+
+function validarconcepto() {
+    let element = document.getElementById("concepto");
+    if (!element.checkValidity()) {
+        if (element.validity.valueMissing) {
+            error(element, "Has d'introduir un concepto.");
+        }
+        if (element.validity.patternMismatch) {
+            error(element, "El concepto ha de ser vàlid.");
+        }
+        return false;
+    }
+    return true;
+}
+
+
+function validardh() {
+    let element = document.getElementById("dh");
+    if (!element.checkValidity()) {
+        if (element.validity.valueMissing) {
+            error(element, "Has d'introduir un valor.");
+        }
+        if (element.validity.patternMismatch) {
+            error(element, "El valor ha de ser 'D' o 'H'.");
+        }
+        return false;
+    }
+    return true;
+}
+
+function validarimporte() {
+    let element = document.getElementById("importe");
+    if (!element.checkValidity()) {
+        if (element.validity.valueMissing) {
+            error(element, "Has d'introduir un importe.");
+        }
+        if (element.validity.patternMismatch) {
+            error(element, "El importe ha de ser un número válido.");
+        }
+        return false;
+    }
+    return true;
+}
+
+
+function validar(e) {
+    esborrarError();
+
+    if (validarfecha() && validarconcepto() && validardh() && validarimporte()  && confirm("Confirma si vols crear el registre?")) {
+        añadirApunte();
+        return true;
+    } else {
+        e.preventDefault();
+        return false;
+    }
+}
+
+function error(element, missatge) {
+    const missatgeNode = document.createTextNode(missatge);
+    document.getElementById("missatgeError").appendChild(missatgeNode);
+    element.classList.add("error");
+    element.focus();
+}
+
+function esborrarError() {
+    document.getElementById("missatgeError").textContent = "";
+    const formulari = document.forms[0];
+    for (let i = 0; i < formulari.elements.length; i++) {
+        formulari.elements[i].classList.remove("error");
+    }
+}
+
