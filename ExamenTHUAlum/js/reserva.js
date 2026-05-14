@@ -1,25 +1,19 @@
 
-let cocheSeleccionadoGlobal = null;
-
+let cocheSeleccionadoGlobal = null;    
+const urlParams = new URLSearchParams(window.location.search);
+const idUrl = urlParams.get('id');
+let datoscoche = JSON.parse(localStorage.getItem("cars")) || [];
 document.addEventListener("DOMContentLoaded", main);
 
 function main() {
     carregarmodelocochesseleccionat();
-    
-    document.getElementById("enviar").addEventListener("click", function(e) {
-        e.preventDefault();
-      
-    });
+    document.getElementById("enviar").addEventListener("click", validar, false);
 }
 
 function carregarmodelocochesseleccionat() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const idUrl = urlParams.get('id');
 
-    let datoscoche = JSON.parse(localStorage.getItem("cars")) || [];
-    
+
     cocheSeleccionadoGlobal = datoscoche.find(coche => coche.modelo === idUrl);
-    localStorage.setItem("cocheSeleccionado", JSON.stringify(cocheSeleccionadoGlobal));
 
     if (cocheSeleccionadoGlobal) {
         let tituloContainer = document.querySelector(".card-title");
@@ -46,58 +40,74 @@ function carregarmodelocochesseleccionat() {
     }
 }
 
-function validarfecha() {
-    let element = document.getElementById("fecha");
+function cocheseleccionat(){
+       
+    
+    cocheSeleccionadoGlobal = datoscoche.find(coche => coche.modelo === idUrl);
+    console.log(cocheSeleccionadoGlobal);
+    localStorage.setItem("coche", JSON.stringify(cocheSeleccionadoGlobal));
+}
+
+function validarnombreApellidos() {
+    let element = document.getElementById("nombreApellidos");
     if (!element.checkValidity()) {
         if (element.validity.valueMissing) {
-            error(element, "Has d'introduir una data.");
+            error(element, "Has d'introduir un nombre i cognoms.");
         }
         if (element.validity.patternMismatch) {
-            error(element, "La data ha de ser vàlida.");
+            error(element, "El nombre i cognoms ha de ser vàlid.");
         }
         return false;
     }
     return true;
 }
 
-function validarconcepto() {
-    let element = document.getElementById("concepto");
+function validardni() {
+    let element = document.getElementById("dniCifNia");
     if (!element.checkValidity()) {
         if (element.validity.valueMissing) {
-            error(element, "Has d'introduir un concepto.");
+            error(element, "Has d'introduir un DNI, CIF o NIE.");
         }
         if (element.validity.patternMismatch) {
-            error(element, "El concepto ha de ser vàlid.");
+            error(element, "El DNI, CIF o NIE ha de ser vàlid.");
         }
         return false;
     }
     return true;
 }
 
-
-function validardh() {
-    let element = document.getElementById("dh");
+function validaremail(){
+    let element = document.getElementById("email");
     if (!element.checkValidity()) {
         if (element.validity.valueMissing) {
-            error(element, "Has d'introduir un valor.");
+            error(element, "Has d'introduir un email.");
         }
         if (element.validity.patternMismatch) {
-            error(element, "El valor ha de ser 'D' o 'H'.");
+            error(element, "El email ha de ser vàlid.");
         }
         return false;
     }
     return true;
 }
 
-function validarimporte() {
-    let element = document.getElementById("importe");
+function validartelefono(){
+    let element = document.getElementById("telefono");
     if (!element.checkValidity()) {
         if (element.validity.valueMissing) {
-            error(element, "Has d'introduir un importe.");
+            error(element, "Has d'introduir un telefono.");
         }
         if (element.validity.patternMismatch) {
-            error(element, "El importe ha de ser un número válido.");
+            error(element, "El telefono ha de ser vàlid.");
         }
+        return false;
+    }
+    return true;
+}
+
+function validarcondicions(){
+    let element = document.getElementById("aceptar");
+    if (!element.checked) {
+        error(element, "Has d'acceptar les condicions.");
         return false;
     }
     return true;
@@ -107,8 +117,9 @@ function validarimporte() {
 function validar(e) {
     esborrarError();
 
-    if (validarfecha() && validarconcepto() && validardh() && validarimporte()  && confirm("Confirma si vols crear el registre?")) {
-        añadirApunte();
+    if (validarnombreApellidos() && validardni() && validaremail() && validartelefono() && validarcondicions() && confirm("Confirma si vols crear el registre?")) {
+     afegirreserva();
+
         return true;
     } else {
         e.preventDefault();
@@ -116,15 +127,31 @@ function validar(e) {
     }
 }
 
+function afegirreserva(){
+    let reserva = {
+        nombreApellidos: document.getElementById("nombreApellidos").value,
+        dniCifNia: document.getElementById("dniCifNia").value,
+        email: document.getElementById("email").value,
+        telefono: document.getElementById("telefono").value,
+        nota: document.getElementById("nota").value,
+   
+    };
+    let reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+    reservas.push(reserva);
+    localStorage.setItem("reservas", JSON.stringify(reservas));
+    cocheseleccionat()
+}
+    
+
+
 function error(element, missatge) {
     const missatgeNode = document.createTextNode(missatge);
-    document.getElementById("missatgeError").appendChild(missatgeNode);
-    element.classList.add("error");
+    document.getElementById("errorMensaje").appendChild(missatgeNode);
     element.focus();
 }
 
 function esborrarError() {
-    document.getElementById("missatgeError").textContent = "";
+    document.getElementById("errorMensaje").textContent = "";
     const formulari = document.forms[0];
     for (let i = 0; i < formulari.elements.length; i++) {
         formulari.elements[i].classList.remove("error");
