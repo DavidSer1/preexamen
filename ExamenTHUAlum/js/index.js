@@ -1,101 +1,91 @@
-
-
 document.addEventListener("DOMContentLoaded", main);
 
 function main() {
-    if(!localStorage.getItem("cars")){
-     carregardadadeslocalstorage();
-    }
-        carregarCoches();
-}
-
-function carregarCoches() {
- let datoscoche = JSON.parse(localStorage.getItem("cars")) || [];
-
-datoscoche.forEach(coche => {
-    let llistatcoches = document.getElementById("listado");
-    let cardprincipal = document.createElement("div");
-  
-    cardprincipal.className = "card mb-4";
-    let image = document.createElement("a");
-    let linkcoche = document.createElement("img");
-    linkcoche.className = "card-img-top";
-    linkcoche.src = "img/"+coche.img;
-    image.appendChild(linkcoche);
-    let imfochecard = document.createElement("div");
-    imfochecard.className = "card-body";
-    let titolcoche = document.createElement("h2");
-    titolcoche.className = "card-title ";
-    let texttitolcoche = document.createTextNode(coche.marca + " " + coche.modelo);
-    titolcoche.appendChild(texttitolcoche);
-    let rowpreu = document.createElement("div");
-    rowpreu.className = "row justify-content-end";
-    let divenglobapreu = document.createElement("div");
-    divenglobapreu.className = "p-2 mb-1  col-md-3 offset-md-3 bg-warning rounded text-center";
-    let preucoche = document.createElement("h2");
-    let preucochetext = document.createTextNode(coche.precio + " €");
-    preucoche.appendChild(preucochetext);
-    preucoche.className = "font-weight-bold";
-    divenglobapreu.appendChild(preucoche);
-    rowpreu.appendChild(divenglobapreu);
-    imfochecard.appendChild(titolcoche);
-    imfochecard.appendChild(rowpreu);
-    cardprincipal.appendChild(image);
-    cardprincipal.appendChild(imfochecard);
-
-    let parametrescoche = document.createElement("div");
-    parametrescoche.className = "row";
-
-    let thany = donarthcoche("Año");
-    let thkilometros = donarthcoche("Kilometros");
-    let thcambio = donarthcoche("Cambio");
-    let thcombustible = donarthcoche("Combustible");
-    let hueco = document.createElement("div");
-    hueco.className = "w-100";
-    parametrescoche.appendChild(thany);
-    parametrescoche.appendChild(thkilometros);
-    parametrescoche.appendChild(thcambio);
-    parametrescoche.appendChild(thcombustible);
-    parametrescoche.appendChild(hueco);
-    let tdany = tornardadescoche(coche.anyo);
-    let tdkilometros = tornardadescoche(coche.km);
-    let tdcambio = tornardadescoche(coche.cambio);
-    let tdcombustible = tornardadescoche(coche.combustible);
-    parametrescoche.appendChild(tdany);
-    parametrescoche.appendChild(tdkilometros);
-    parametrescoche.appendChild(tdcambio);
-    parametrescoche.appendChild(tdcombustible);
-    let linkreservar = document.createElement("a");
-    linkreservar.classList.add("btn", "btn-primary", "m-3");
-   
-    let id = coche.modelo;
-  linkreservar.href = "./reserva.html?id="+id;
-    linkreservar.appendChild(document.createTextNode("Reservar"));
-
-    imfochecard.appendChild(parametrescoche);
-    imfochecard.appendChild(linkreservar);
-
-    llistatcoches.appendChild(cardprincipal);
-});
-}
-
-function donarthcoche(contingut) {
-    let th = document.createElement("div");
-    th.className = "col p-3 text-center border-bottom border-dark"
-    th.appendChild(document.createTextNode(contingut));
-    return th;
-}
-
-function tornardadescoche(contingut) {
-    let td = document.createElement("div");
-    td.className = "col p-3 text-center";
-    td.appendChild(document.createTextNode(contingut));
-    return td;
-} 
-
-function carregardadadeslocalstorage(){
-   if (!localStorage.getItem("cars")) {
-    console.log(data.cars);
-    localStorage.setItem("cars", JSON.stringify(data.cars));
+  if (!localStorage.getItem("coches")) {
+    localStorage.setItem("coches", JSON.stringify(data.cars));
   }
+  carregarcoches();
+}
+
+function carregarcoches() {
+  let dadescoche = JSON.parse(localStorage.getItem("coches"));
+
+  dadescoche.forEach((dadescoches) => {
+    let idllistat = document.getElementById("listado");
+    let cardmostrar = document.createElement("div");
+    cardmostrar.className = "card mb-4";
+    let linkimatge = document.createElement("a");
+    let imatge = document.createElement("img");
+    imatge.className = "card-img-top";
+    imatge.src = "img/" + dadescoches.img;
+    linkimatge.appendChild(imatge);
+
+    cardmostrar.appendChild(linkimatge);
+    let divcontingut = document.createElement("div");
+    divcontingut.className = "card-body";
+    let titol = document.createElement("h2");
+    titol.className = "card-title";
+
+    titol.appendChild(document.createTextNode(dadescoches.marca));
+    divcontingut.appendChild(titol);
+
+    let divpreu = document.createElement("div");
+    divpreu.className = "row justify-content-end";
+    let divclasepreu = document.createElement("div");
+    divclasepreu.className =
+      "p-2 mb-1  col-md-3 offset-md-3 bg-warning rounded text-center";
+    let preu = document.createElement("h2");
+    preu.className = "font-weight-bold";
+    preu.appendChild(document.createTextNode(dadescoches.precio));
+    divclasepreu.appendChild(preu);
+    divpreu.appendChild(divclasepreu);
+    divcontingut.appendChild(divpreu);
+
+    let restacontingut = document.createElement("div");
+    restacontingut.className = "row";
+
+    restacontingut.appendChild(titols("Año"));
+    restacontingut.appendChild(titols("Kilometros"));
+    restacontingut.appendChild(titols("Cambio"));
+    restacontingut.appendChild(titols("Combustible"));
+
+    let divsepparador = document.createElement("div");
+    divsepparador.className = "w-100";
+    restacontingut.appendChild(divsepparador);
+
+    restacontingut.appendChild(resta(dadescoches.anyo));
+    restacontingut.appendChild(resta(dadescoches.km));
+    restacontingut.appendChild(resta(dadescoches.cambio));
+    restacontingut.appendChild(resta(dadescoches.combustible));
+    divcontingut.appendChild(restacontingut);
+    let botoreservar = document.createElement("a");
+    botoreservar.className = "btn btn-primary m-3";
+  
+    botoreservar.appendChild(document.createTextNode("Reservar"));
+
+botoreservar.href = "./reserva.html";
+
+botoreservar.onclick = function() {
+    localStorage.setItem("cocheseleccionat", JSON.stringify(dadescoches));
+};
+    divcontingut.appendChild(botoreservar);
+    cardmostrar.appendChild(divcontingut);
+    idllistat.appendChild(cardmostrar);
+  });
+}
+
+function titols(element) {
+  let divs = document.createElement("div");
+  divs.className = "col p-3 text-center border-bottom border-dark";
+  divs.appendChild(document.createTextNode(element));
+  return divs;
+}
+
+function resta(element) {
+  let divs = document.createElement("div");
+  let strongers = document.createElement("strong");
+  divs.className = "col p-3 text-center";
+  strongers.appendChild(document.createTextNode(element));
+  divs.appendChild(strongers);
+  return divs;
 }
