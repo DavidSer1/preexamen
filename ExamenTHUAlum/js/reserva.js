@@ -35,3 +35,17 @@ function carregarcocheseleccionat() {
         }
     }
 }
+
+function error(element, missatge) {
+    const missatgeNode = document.createTextNode(missatge);
+    document.getElementById("errorMensaje").appendChild(missatgeNode);
+    element.focus();
+}
+
+function esborrarError() {
+    document.getElementById("errorMensaje").textContent = "";
+    const formulari = document.forms[0];
+    for (let i = 0; i < formulari.elements.length; i++) {
+        formulari.elements[i].classList.remove("error");
+    }
+}
