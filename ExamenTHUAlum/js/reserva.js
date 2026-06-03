@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", main);
     let agafarmodel = JSON.parse(localStorage.getItem("cocheseleccionat"))
 function main(){
 carregarcocheseleccionat();
+document.addEventListener
 }
 
 function carregarcocheseleccionat() {
@@ -15,7 +16,7 @@ function carregarcocheseleccionat() {
         
         const titulo = document.querySelector('#listado .card-title');
    
-            const nuevoTextoTitulo = document.createTextNode(agafarmodel.modelo);
+            const nuevoTextoTitulo = document.createTextNode(agafarmodel.marca + "   " + agafarmodel.modelo);
             titulo.replaceChildren(nuevoTextoTitulo);
         
 
@@ -65,4 +66,71 @@ function validar(e) {
 
 function   afegirreserva(){
     
+}
+
+function validarnombreApellidos(){
+    let element = document.getElementById("nombreApellidos");
+    if (!element.checkValidity()) {
+        if (element.validity.valueMissing) {
+            error(element, "Has d'introduir un nombre.");
+        }
+        if (element.validity.patternMismatch) {
+            error(element, "El telefono ha de ser vàlid.");
+        }
+        return false;
+    }
+    return true;
+}
+
+function validardni(){
+    let element = document.getElementById("dniCifNia");
+    if (!element.checkValidity()) {
+        if (element.validity.valueMissing) {
+            error(element, "Has d'introduir un dni.");
+        }
+        if (element.validity.patternMismatch) {
+            error(element, "El dni ha de ser vàlid.");
+        }
+        return false;
+    }
+    return true;
+}
+
+function validaremail(){
+    let element = document.getElementById("email");
+    if (!element.checkValidity()) {
+        if (element.validity.valueMissing) {
+            error(element, "Has d'introduir un email.");
+        }
+        if (element.validity.patternMismatch) {
+            error(element, "El email ha de ser vàlid.");
+        }
+        return false;
+    }
+    return true;
+}
+
+function validartelefono(){
+    let element = document.getElementById("telefono");
+    if (!element.checkValidity()) {
+        if (element.validity.valueMissing) {
+            error(element, "Has d'introduir un telefono.");
+        }
+        if (element.validity.patternMismatch) {
+            error(element, "El telefono ha de ser vàlid.");
+        }
+        return false;
+    }
+    return true;
+}
+
+
+
+function validarcondicions(){
+    let element = document.getElementById("aceptar");
+    if (!element.checked) {
+        error(element, "Has d'acceptar les condicions.");
+        return false;
+    }
+    return true;
 }

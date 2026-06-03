@@ -26,7 +26,7 @@ function carregarcoches() {
     let titol = document.createElement("h2");
     titol.className = "card-title";
 
-    titol.appendChild(document.createTextNode(dadescoches.marca));
+    titol.appendChild(document.createTextNode(dadescoches.marca + dadescoches.modelo ));
     divcontingut.appendChild(titol);
 
     let divpreu = document.createElement("div");
