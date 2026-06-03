@@ -49,3 +49,20 @@ function esborrarError() {
         formulari.elements[i].classList.remove("error");
     }
 }
+
+
+function validar(e) {
+    esborrarError();
+
+    if (validarnombreApellidos() && validardni() && validaremail() && validartelefono() && validarcondicions() && confirm("Confirma si vols crear el registre?")) {
+     afegirreserva();
+        return true;
+    } else {
+        e.preventDefault();
+        return false;
+    }
+}
+
+function   afegirreserva(){
+    
+}
