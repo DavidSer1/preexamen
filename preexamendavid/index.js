@@ -31,7 +31,7 @@ function carregartaula() {
         cargarApunte(ele)    
 
     });
-}  
+}
 
 const cargarApunte = (element) => {
       let agafaid = document.getElementById("contingut");
