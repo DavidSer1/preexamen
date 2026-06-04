@@ -2,17 +2,15 @@ document.addEventListener("DOMContentLoaded", main);
     let agafarmodel = JSON.parse(localStorage.getItem("cocheseleccionat"))
 function main(){
 carregarcocheseleccionat();
-document.addEventListener
+document.getElementById("enviar").addEventListener("click", validar, false);
 }
 
 function carregarcocheseleccionat() {
-    let agafarmodel = JSON.parse(localStorage.getItem("cocheseleccionat"));
 
     if (agafarmodel) {
    
         const imagen = document.querySelector('#listado .card-img-top');
             imagen.src = "img/" + agafarmodel.img; 
-            imagen.alt = agafarmodel.modelo;
         
         const titulo = document.querySelector('#listado .card-title');
    
